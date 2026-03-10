@@ -1,0 +1,17 @@
+{
+  "url": "http://localhost:3000",
+  "plan": [
+    {
+      "element": { "tag": "button", "text": "Sign Up", "classes": ["btn", "primary"] },
+      "tags": { "gtm": { "event": "generate_lead" } }
+    },
+    {
+      "element": { "tag": "a", "id": "login-link" },
+      "tags": { "gtm": { "event": "click_login" } }
+    },
+    {
+      "element": { "tag": "button", "text": "Buy Now" },
+      "tags": { "gtm": { "event": "add_to_cart" } }
+    }
+  ]
+}
