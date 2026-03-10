@@ -1,25 +1,37 @@
+---
+name: openclaw-tracking-automation
+description: Automate GTM and Meta Pixel tracking audits, planning, and implementation.
+emoji: 🎯
+---
+
 # OpenClaw Tracking Automation
 
-## Overview
-This skill builds the foundational pipeline to automatically implement, test, and report on tracking architecture, explicitly targeting Google Tag Manager (GTM) dataLayer injections and Meta Pixel standard events.
+This skill automates the process of auditing a website's existing tracking, creating a comprehensive GTM/Meta Pixel tracking plan, and implementing those tags programmatically via GTM APIs and Meta Conversions API.
 
-## Architecture
+## Commands
 
-The automation follows a 7-stage file-passing architecture, ensuring zero data loss and complete traceability between steps:
+### 1. Audit
+Run a technical audit on a target website to discover existing DataLayer events, GTM containers, and Meta Pixels.
+```bash
+node audit.js <target_url>
+```
+*Outputs: `audit-results.json`*
 
-1. **Init (`init.js`)**: Initialize and parse the tracking request parameters (URL, desired events).
-2. **Audit (`audit.js`)**: Scan existing site markup, current tracking setup, and dataLayer presence.
-3. **Plan (`plan.js`)**: Generate the exact GTM dataLayer schemas and Meta Pixel events (e.g., `ViewContent`, `AddToCart`, `Purchase`) needed.
-4. **Credentials (`credentials.js`)**: Securely fetch and validate GTM container IDs and Meta Pixel IDs.
-5. **Implement (`implement.js`)**: Inject the dataLayer configuration, GTM base snippet, Meta Pixel base code, and specific trigger events into the codebase or tag manager UI.
-6. **Test (`test.js`)**: Run headless verification to trigger actions and intercept network requests (ensuring tags fire correctly).
-7. **Report (`report.js`)**: Compile the results, proof of execution, and any anomalies into a final payload.
+### 2. Plan
+Generate a standardized tracking plan mapping business objectives to GTM triggers, DataLayer variables, and Meta standard events.
+```bash
+node plan.js
+```
+*Outputs: `gtm-tracking-plan.json`*
 
-## Core Scripts
-- `init.js`
-- `audit.js`
-- `plan.js`
-- `credentials.js`
-- `implement.js`
-- `test.js`
-- `report.js`
+### 3. Implement
+Push the tracking plan to Google Tag Manager and configure Meta Conversions API endpoints.
+```bash
+node implement.js
+```
+*Outputs: `implementation-log.json`*
+
+## Setup Requirements
+- Requires Google Tag Manager API access (OAuth).
+- Requires Meta Business Manager System User Token (for Conversions API).
+- Ensure `.env` is configured with valid credentials before running `implement.js`.
